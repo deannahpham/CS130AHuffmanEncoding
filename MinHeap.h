@@ -18,7 +18,7 @@ public:
 	void print(); //print heap
 
 private:
-	Trie* heap; //root of heap
+	Trie** heap; //root of heap
 	int nextAdd; //keep track of the next index of where we want to add 
 
 };
