@@ -19,7 +19,7 @@ HuffmanEncoding::HuffmanEncoding(string fileName){
 
 void HuffmanEncoding::extractFromFile(string fileName){
 	string line;
-	ifstream myfile (fileName);
+	ifstream myfile (fileName.c_str() );
 
 	if (myfile.is_open()){
   		while ( getline (myfile,line)){
