@@ -18,6 +18,8 @@ public:
 	void print(); //print heap
 
 private:
+	int getMin(int left, int right);
+
 	Trie** heap; //root of heap
 	int nextAdd; //keep track of the next index of where we want to add 
 

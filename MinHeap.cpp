@@ -24,7 +24,9 @@ bool MinHeap::add(Trie* t) {
 			heap[child] = heap[parent];
 			heap[parent] = temp; 
 		}
-		else break; 
+		else{
+			break;
+		} 
 		child = child/2;
 		parent = parent/2; 
 	}
@@ -36,12 +38,41 @@ bool MinHeap::add(Trie* t) {
 
 Trie* MinHeap::peek(){
 
-	return NULL;
+	return heap[1];
 }
 
 Trie* MinHeap::poll(){
 	
-	return NULL;
+	Trie* result = heap[1];
+	int pos = 1; 
+	heap[1] = heap[nextAdd-1];
+	nextAdd--;
+
+	while(pos*2 < nextAdd){
+		int min = getMin(pos*2, pos*2+1);
+		if(heap[min]->frequency < heap[pos]->frequency){
+			Trie* temp = heap[min];
+			heap[min] = heap[pos];
+			heap[pos] = temp; 
+		}
+		else{ 
+			break;
+		} 
+		
+		pos = min; 
+	}
+
+	return result;
+}
+
+int MinHeap::getMin(int left, int right){
+	if(left >= nextAdd){
+		return -1;
+	}
+	if(right >= nextAdd){
+		return left; 
+	}
+	return (heap[left]->frequency < heap[right]->frequency)?  left : right;
 }
 
 void MinHeap::print(){

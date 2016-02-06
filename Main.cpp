@@ -28,7 +28,7 @@ int main(int argc, char** argv){
 
 	t1 = new Trie();
 	t1->left = NULL; t1->right = NULL; 
-	t1->frequency = -28 ; t1->c = 'c';
+	t1->frequency = 2 ; t1->c = 'c';
 	minHeap->add(t1);
 
 	t1 = new Trie();
@@ -41,6 +41,10 @@ int main(int argc, char** argv){
 	t1->frequency = 5 ; t1->c = 'e';
 	minHeap->add(t1);
 
+	minHeap->print();
+
+	t1 = minHeap->poll();
+	cout << "just removed: " << t1->c << "," << t1->frequency << endl;
 	minHeap->print();
 
 }
