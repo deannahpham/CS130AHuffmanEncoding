@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+//#include "MinHeap.cpp"
 
 using namespace std;
 
@@ -14,9 +15,58 @@ HuffmanEncoding::HuffmanEncoding(string fileName){
 
 	//get the inputs from a file 
 	extractFromFile(fileName);
+	encodedTrie = new Trie();
 
 }
 
+void HuffmanEncoding::encodeFile(){
+	MinHeap* heap = new MinHeap(); 
+	for(int i = 0; i < 29; i++){
+		if(frequency[i] == 0)
+			continue; 
+		Trie* t = new Trie();
+		t->c = intToChar(i);
+		t->frequency = frequency[i];
+		heap->add(t);
+	}
+	heap->print();
+
+	Trie* newTrie = new Trie();
+
+	while(heap->getSize() > 1){
+		Trie* left = heap->poll();
+		Trie* right = heap->poll();
+ 
+		newTrie->left = left;
+		newTrie->right = right;
+
+		newTrie->c = 'I';
+		newTrie->frequency = left->frequency + right->frequency;
+
+		heap->add(newTrie);
+		heap->print();
+
+	}
+	encodedTrie = newTrie;
+}
+
+void HuffmanEncoding::printArray(){
+	for(int i = 0; i < 29; i++){
+		char c = intToChar(i);
+		if(c == '\n')
+			cout << "(" << "\\n";
+		else{
+			cout << "(" << c;
+		}
+
+		cout << "," << frequency[i] << ")" << ";";
+	}
+	cout << endl;
+}
+
+
+
+//PRIVATE METHODS 
 void HuffmanEncoding::extractFromFile(string fileName){
 	string line;
 	ifstream myfile (fileName.c_str() );
@@ -68,11 +118,4 @@ char HuffmanEncoding::intToChar(int n){
 	else
 		return (char)(n+97);
 
-}
-
-void HuffmanEncoding::printArray(){
-	for(int i = 0; i < 29; i++){
-		cout << "(" << intToChar(i) << "," << frequency[i] << ")" << ";";
-	}
-	cout << endl;
 }

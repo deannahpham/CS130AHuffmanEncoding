@@ -16,6 +16,7 @@ public:
 	Trie* peek(); //returns root but does not remove it
 	Trie* poll(); // return and remove root
 	void print(); //print heap
+	int getSize();
 
 private:
 	int getMin(int left, int right);

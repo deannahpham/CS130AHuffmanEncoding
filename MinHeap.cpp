@@ -78,8 +78,18 @@ int MinHeap::getMin(int left, int right){
 void MinHeap::print(){
 
 	for(int i = 1; i< nextAdd; i++){
-		cout << heap[i]->c << ","<< heap[i]-> frequency<<endl;
+		if(heap[i]->c == '\n'){
+			cout << "\\n";
+		}
+		else{
+			cout << heap[i]->c;
+		}
+		cout << ","<< heap[i]-> frequency<<endl;
 	}
 
+}
+
+int MinHeap::getSize(){
+	return nextAdd-1; 
 }
 

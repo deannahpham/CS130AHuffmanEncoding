@@ -9,11 +9,15 @@
 using namespace std; 
 
 int main(int argc, char** argv){
-	//cout << "STUB" << endl;
-	//HuffmanEncoding encode("input.txt");
-	//encode.printArray();
+	
 
-	MinHeap *minHeap = new MinHeap();
+
+	//cout << "STUB" << endl;
+	HuffmanEncoding encode("input.txt");
+	encode.printArray();
+	encode.encodeFile();
+
+	/*MinHeap *minHeap = new MinHeap();
 
 	Trie* t1 = new Trie();
 	t1->left = NULL; t1->right = NULL; 
@@ -45,7 +49,7 @@ int main(int argc, char** argv){
 
 	t1 = minHeap->poll();
 	cout << "just removed: " << t1->c << "," << t1->frequency << endl;
-	minHeap->print();
+	minHeap->print();*/
 
 }
 
