@@ -16,6 +16,8 @@ HuffmanEncoding::HuffmanEncoding(string fileName){
 	//get the inputs from a file 
 	extractFromFile(fileName);
 	encodedTrie = new Trie();
+	encodeFile();
+	outputToFile(fileName);
 
 }
 
@@ -27,13 +29,17 @@ void HuffmanEncoding::encodeFile(){
 		Trie* t = new Trie();
 		t->c = intToChar(i);
 		t->frequency = frequency[i];
+		t->left = NULL;
+		t->right = NULL;
 		heap->add(t);
 	}
 	heap->print();
 
-	Trie* newTrie = new Trie();
+	Trie* newTrie;
 
 	while(heap->getSize() > 1){
+		newTrie = new Trie();
+
 		Trie* left = heap->poll();
 		Trie* right = heap->poll();
  
@@ -48,6 +54,9 @@ void HuffmanEncoding::encodeFile(){
 
 	}
 	encodedTrie = newTrie;
+
+	//printTrie(encodedTrie);
+	makeEncodedValuesArray(encodedTrie, ""); 
 }
 
 void HuffmanEncoding::printArray(){
@@ -119,3 +128,48 @@ char HuffmanEncoding::intToChar(int n){
 		return (char)(n+97);
 
 }
+
+void HuffmanEncoding::makeEncodedValuesArray(Trie* current, string str){
+	if(current->left == NULL && current->right == NULL){
+		encodedValues[charToInt(current->c)] = str; 
+		cout << "added " << current->c << " with string " << str << endl;
+
+		return;
+	}	
+	//cout << "calling left with string: " << str << " " << current->c << endl;
+	makeEncodedValuesArray(current->left, str+"0");
+
+	//cout << "calling right with string: " << str << endl;
+	makeEncodedValuesArray(current->right, str+"1");
+}
+
+string HuffmanEncoding::getEncodedValue(char c){
+	return encodedValues[charToInt(c)];
+}
+
+void HuffmanEncoding::outputToFile(string inputFile){
+	ofstream myfile ("output.txt");
+	string line;
+	ifstream inFile (inputFile);
+	if (inFile.is_open()){
+		while ( getline (inFile,line) ){
+			cout << line << endl;
+			for(int i = 0; i < line.size(); i++){
+				string val = getEncodedValue(line.at(i));
+  				myfile << val;
+  			}
+		}
+		myfile.close();
+	}
+    
+  	else cout << "Unable to open file";
+}
+
+void HuffmanEncoding::printTrie(Trie* current){
+	if(current == NULL)
+		return;
+	cout << current->c << " " << current->frequency << endl;
+	printTrie(current->left);
+	printTrie(current->right);
+}
+

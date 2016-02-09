@@ -20,7 +20,11 @@ private:
 	void extractFromFile(string fileName); //Given a file, extracts all characters and adds it to frequency
 	int charToInt(char c); //turns a character into it's integer position in the array
 	char intToChar(int n); //turns an integer to the character corresponding to it
-	
+	void makeEncodedValuesArray(Trie* current, string str); 
+	void printTrie(Trie* current);
+	void outputToFile(string inputFile); 
+	string getEncodedValue(char c);
+
 	//PRIVATE VARIABLES
 	
 	//Includes the frequency of each character 
@@ -30,6 +34,8 @@ private:
 	//positions 28 will be '\n'
 	int frequency[29]; 
 	Trie* encodedTrie; 
+
+	string encodedValues[29]; 
 
 };
 
