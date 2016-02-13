@@ -11,6 +11,11 @@ MinHeap::MinHeap() {
 	nextAdd = 1; 
 }
 
+MinHeap::MinHeap(Trie** array, int size){
+	heap = array; 
+	makeHeap(); 
+}
+
 bool MinHeap::add(Trie* t) {
 
 	heap[nextAdd]=t;
@@ -92,4 +97,12 @@ void MinHeap::print(){
 int MinHeap::getSize(){
 	return nextAdd-1; 
 }
+
+void MinHeap::makeHeap(){
+	//
+}
+
+
+
+
 

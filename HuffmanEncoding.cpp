@@ -84,7 +84,7 @@ void HuffmanEncoding::extractFromFile(string fileName){
   		while ( getline (myfile,line)){
     		cout << line << '\n';
 
-	  		for(int i = 0; i < line.size(); i++)
+	  		for(int i = 0; i < (int)line.size(); i++)
   				addChar(line.at(i));
   			addChar('\n');
   		}
@@ -154,7 +154,7 @@ void HuffmanEncoding::outputToFile(string inputFile){
 	if (inFile.is_open()){
 		while ( getline (inFile,line) ){
 			cout << line << endl;
-			for(int i = 0; i < line.size(); i++){
+			for(int i = 0; i < (int)line.size(); i++){
 				string val = getEncodedValue(line.at(i));
   				myfile << val;
   			}

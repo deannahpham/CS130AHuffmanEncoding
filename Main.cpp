@@ -14,8 +14,8 @@ int main(int argc, char** argv){
 
 	//cout << "STUB" << endl;
 	HuffmanEncoding encode("input.txt");
-	encode.printArray();
-	encode.encodeFile();
+	//encode.printArray();
+	//encode.encodeFile();
 
 	/*MinHeap *minHeap = new MinHeap();
 
