@@ -13,6 +13,8 @@ MinHeap::MinHeap() {
 
 MinHeap::MinHeap(Trie** array, int size){
 	heap = array; 
+	nextAdd = size; 
+
 	makeHeap(); 
 }
 
@@ -99,10 +101,46 @@ int MinHeap::getSize(){
 }
 
 void MinHeap::makeHeap(){
-	//
+	int pos = (nextAdd-1)/2;
+	//print(); cout << endl;
+
+	//cout << "POS IS " << pos; 
+
+	while(pos != 0){
+		int min = getMin(pos*2, pos*2+1);
+		//cout << "POS IS " << pos << endl; 
+
+		if(heap[pos]->frequency > heap[min]->frequency){
+			Trie * tmp = heap[pos];
+			heap[pos] = heap[min]; 
+			heap[min] = tmp; 
+			cout << "switched " << min << " with " << pos << endl;
+			percolateDown(pos);
+		}
+		pos--; 
+	}
+
+	//print(); cout << endl;
+
+
 }
 
+void MinHeap::percolateDown(int pos){
+	while(pos*2 < nextAdd){
+		int min = getMin(pos*2, pos*2+1);
+		if(heap[min]->frequency < heap[pos]->frequency){
+			Trie* temp = heap[min];
+			heap[min] = heap[pos];
+			heap[pos] = temp; 
+		}
+		else{ 
+			break;
+		} 
+		
+		pos = min; 
+	}
 
+}
 
 
 

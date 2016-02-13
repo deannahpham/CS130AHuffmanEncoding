@@ -22,6 +22,7 @@ public:
 private:
 	int getMin(int left, int right);
 	void makeHeap(); 
+	void percolateDown(int pos);
 
 	Trie** heap; //root of heap
 	int nextAdd; //keep track of the next index of where we want to add 

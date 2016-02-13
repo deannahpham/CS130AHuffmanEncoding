@@ -22,7 +22,8 @@ HuffmanEncoding::HuffmanEncoding(string fileName){
 }
 
 void HuffmanEncoding::encodeFile(){
-	MinHeap* heap = new MinHeap(); 
+	Trie** array = new Trie*[30];
+	int size = 1; 
 	for(int i = 0; i < 29; i++){
 		if(frequency[i] == 0)
 			continue; 
@@ -31,9 +32,29 @@ void HuffmanEncoding::encodeFile(){
 		t->frequency = frequency[i];
 		t->left = NULL;
 		t->right = NULL;
+		array[size] = t; 
+		size++;
+		//heap->add(t);
+	}	
+
+	/*for(int i = 1; i < size; i++){
+		cout << array[i]->c << ", " << array[i]->frequency << endl;
+	}*/
+
+	MinHeap* heap = new MinHeap(array, size); 
+	/*for(int i = 0; i < 29; i++){
+		if(frequency[i] == 0)
+			continue; 
+		Trie* t = new Trie();
+		t->c = intToChar(i);
+		t->frequency = frequency[i];
+		t->left = NULL;
+		t->right = NULL;
 		heap->add(t);
-	}
+	}*/
 	heap->print();
+	cout << endl;
+
 
 	Trie* newTrie;
 
@@ -137,10 +158,10 @@ void HuffmanEncoding::makeEncodedValuesArray(Trie* current, string str){
 		return;
 	}	
 	//cout << "calling left with string: " << str << " " << current->c << endl;
-	makeEncodedValuesArray(current->left, str+"0");
+	makeEncodedValuesArray(current->left, str+"1");
 
 	//cout << "calling right with string: " << str << endl;
-	makeEncodedValuesArray(current->right, str+"1");
+	makeEncodedValuesArray(current->right, str+"0");
 }
 
 string HuffmanEncoding::getEncodedValue(char c){

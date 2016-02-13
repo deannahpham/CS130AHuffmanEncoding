@@ -1,1 +1,12 @@
-this is a test input file
+a
+
+b
+
+b
+
+d
+
+d
+
+
+d
