@@ -37,21 +37,8 @@ void HuffmanEncoding::encodeFile(){
 		//heap->add(t);
 	}	
 
-	/*for(int i = 1; i < size; i++){
-		cout << array[i]->c << ", " << array[i]->frequency << endl;
-	}*/
-
 	MinHeap* heap = new MinHeap(array, size); 
-	/*for(int i = 0; i < 29; i++){
-		if(frequency[i] == 0)
-			continue; 
-		Trie* t = new Trie();
-		t->c = intToChar(i);
-		t->frequency = frequency[i];
-		t->left = NULL;
-		t->right = NULL;
-		heap->add(t);
-	}*/
+
 	heap->print();
 	cout << endl;
 
@@ -61,8 +48,8 @@ void HuffmanEncoding::encodeFile(){
 	while(heap->getSize() > 1){
 		newTrie = new Trie();
 
-		Trie* left = heap->poll();
 		Trie* right = heap->poll();
+		Trie* left = heap->poll();
  
 		newTrie->left = left;
 		newTrie->right = right;
@@ -76,8 +63,53 @@ void HuffmanEncoding::encodeFile(){
 	}
 	encodedTrie = newTrie;
 
-	//printTrie(encodedTrie);
 	makeEncodedValuesArray(encodedTrie, ""); 
+}
+
+void HuffmanEncoding::decodeFromFile(string fileName){
+	string line; 
+	ifstream infile(fileName.c_str());
+	ofstream outfile ("decoded.txt");
+
+	if (infile.is_open()){
+  		while ( getline (infile,line)){
+    		cout << line << '\n';
+
+    		decodeIntoFile(outfile, line);
+	  		
+  			addChar('\n');
+  		}
+   
+    	infile.close();
+	}
+
+	else cout << "Unable to open file";
+
+	outfile.close();
+
+}
+
+void HuffmanEncoding::decodeIntoFile(ofstream& file, string line){
+	Trie* traverse = encodedTrie; 
+
+	for(int i = 0; i < (int)line.size(); i++){
+		char c = line.at(i); 
+		if(c == '1'){
+			traverse = traverse->left;
+			if(traverse->left == NULL){
+				file << traverse->c;
+				traverse = encodedTrie; 
+			}
+			
+		}
+		else if(c == '0'){
+			traverse = traverse->right; 
+			if(traverse->right == NULL){
+				file << traverse->c;
+				traverse = encodedTrie; 
+			}
+		}
+	}
 }
 
 void HuffmanEncoding::printArray(){

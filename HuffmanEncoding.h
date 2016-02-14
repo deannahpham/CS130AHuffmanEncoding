@@ -11,6 +11,7 @@ public:
 	HuffmanEncoding(string fileName);
 
 	void encodeFile();
+	void decodeFromFile(string fileName);
 
 	void printArray();
 
@@ -24,6 +25,7 @@ private:
 	void printTrie(Trie* current);
 	void outputToFile(string inputFile); 
 	string getEncodedValue(char c);
+	void decodeIntoFile(ofstream& file, string line); 
 
 	//PRIVATE VARIABLES
 	

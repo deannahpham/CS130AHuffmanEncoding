@@ -14,6 +14,7 @@ int main(int argc, char** argv){
 
 	//cout << "STUB" << endl;
 	HuffmanEncoding encode("input.txt");
+	encode.decodeFromFile("output.txt");
 	//encode.printArray();
 	//encode.encodeFile();
 
