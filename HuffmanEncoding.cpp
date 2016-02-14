@@ -39,11 +39,11 @@ void HuffmanEncoding::encodeFile(){
 
 	MinHeap* heap = new MinHeap(array, size); 
 
-	heap->print();
-	cout << endl;
+	//heap->print();
+	//cout << endl;
 
 
-	Trie* newTrie;
+	Trie* newTrie = heap->peek();
 
 	while(heap->getSize() > 1){
 		newTrie = new Trie();
@@ -58,7 +58,7 @@ void HuffmanEncoding::encodeFile(){
 		newTrie->frequency = left->frequency + right->frequency;
 
 		heap->add(newTrie);
-		heap->print();
+		//heap->print();
 
 	}
 	encodedTrie = newTrie;
@@ -73,11 +73,11 @@ void HuffmanEncoding::decodeFromFile(string fileName){
 
 	if (infile.is_open()){
   		while ( getline (infile,line)){
-    		cout << line << '\n';
+    		//cout << line << '\n';
 
     		decodeIntoFile(outfile, line);
 	  		
-  			addChar('\n');
+  			//addChar('\n');
   		}
    
     	infile.close();
@@ -98,6 +98,7 @@ void HuffmanEncoding::decodeIntoFile(ofstream& file, string line){
 			traverse = traverse->left;
 			if(traverse->left == NULL){
 				file << traverse->c;
+				cout << traverse->c;
 				traverse = encodedTrie; 
 			}
 			
@@ -106,6 +107,7 @@ void HuffmanEncoding::decodeIntoFile(ofstream& file, string line){
 			traverse = traverse->right; 
 			if(traverse->right == NULL){
 				file << traverse->c;
+				cout << traverse->c; 
 				traverse = encodedTrie; 
 			}
 		}
@@ -135,11 +137,11 @@ void HuffmanEncoding::extractFromFile(string fileName){
 
 	if (myfile.is_open()){
   		while ( getline (myfile,line)){
-    		cout << line << '\n';
+    		//cout << line << '\n';
 
 	  		for(int i = 0; i < (int)line.size(); i++)
   				addChar(line.at(i));
-  			addChar('\n');
+  			//addChar('\n');
   		}
    
     	myfile.close();
@@ -206,10 +208,12 @@ void HuffmanEncoding::outputToFile(string inputFile){
 	ifstream inFile (inputFile);
 	if (inFile.is_open()){
 		while ( getline (inFile,line) ){
-			cout << line << endl;
+			//cout << line << endl;
 			for(int i = 0; i < (int)line.size(); i++){
 				string val = getEncodedValue(line.at(i));
+				//cout << "val is: " << val << endl;
   				myfile << val;
+  				cout << val; 
   			}
 		}
 		myfile.close();

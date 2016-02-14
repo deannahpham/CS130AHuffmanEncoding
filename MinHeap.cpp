@@ -114,7 +114,7 @@ void MinHeap::makeHeap(){
 			Trie * tmp = heap[pos];
 			heap[pos] = heap[min]; 
 			heap[min] = tmp; 
-			cout << "switched " << min << " with " << pos << endl;
+			//cout << "switched " << min << " with " << pos << endl;
 			percolateDown(pos);
 		}
 		pos--; 
