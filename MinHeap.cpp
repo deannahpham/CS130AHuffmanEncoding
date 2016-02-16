@@ -57,6 +57,7 @@ Trie* MinHeap::poll(){
 
 	while(pos*2 < nextAdd){
 		int min = getMin(pos*2, pos*2+1);
+		if(min == -1) break;
 		if(heap[min]->frequency < heap[pos]->frequency){
 			Trie* temp = heap[min];
 			heap[min] = heap[pos];
@@ -109,13 +110,14 @@ void MinHeap::makeHeap(){
 	while(pos != 0){
 		int min = getMin(pos*2, pos*2+1);
 		//cout << "POS IS " << pos << endl; 
-
-		if(heap[pos]->frequency > heap[min]->frequency){
-			Trie * tmp = heap[pos];
-			heap[pos] = heap[min]; 
-			heap[min] = tmp; 
-			//cout << "switched " << min << " with " << pos << endl;
-			percolateDown(pos);
+		if(min != -1){
+			if(heap[pos]->frequency > heap[min]->frequency){
+				Trie * tmp = heap[pos];
+				heap[pos] = heap[min]; 
+				heap[min] = tmp; 
+				//cout << "switched " << min << " with " << pos << endl;
+				percolateDown(min);
+			}
 		}
 		pos--; 
 	}
@@ -128,6 +130,7 @@ void MinHeap::makeHeap(){
 void MinHeap::percolateDown(int pos){
 	while(pos*2 < nextAdd){
 		int min = getMin(pos*2, pos*2+1);
+		if(min == -1) break;
 		if(heap[min]->frequency < heap[pos]->frequency){
 			Trie* temp = heap[min];
 			heap[min] = heap[pos];

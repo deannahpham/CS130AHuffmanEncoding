@@ -25,7 +25,7 @@ private:
 	void printTrie(Trie* current);
 	void outputToFile(string inputFile); 
 	string getEncodedValue(char c);
-	void decodeIntoFile(ofstream& file, string line); 
+	void decodeIntoFile(string line); 
 
 	//PRIVATE VARIABLES
 	

@@ -63,19 +63,21 @@ void HuffmanEncoding::encodeFile(){
 	}
 	encodedTrie = newTrie;
 
+	printTrie(encodedTrie);
+
 	makeEncodedValuesArray(encodedTrie, ""); 
 }
 
 void HuffmanEncoding::decodeFromFile(string fileName){
 	string line; 
 	ifstream infile(fileName.c_str());
-	ofstream outfile ("decoded.txt");
+	//ofstream outfile ("decoded.txt");
 
 	if (infile.is_open()){
   		while ( getline (infile,line)){
     		//cout << line << '\n';
 
-    		decodeIntoFile(outfile, line);
+    		decodeIntoFile(line);
 	  		
   			//addChar('\n');
   		}
@@ -85,11 +87,12 @@ void HuffmanEncoding::decodeFromFile(string fileName){
 
 	else cout << "Unable to open file";
 
-	outfile.close();
+	cout << endl;
+	//outfile.close();
 
 }
 
-void HuffmanEncoding::decodeIntoFile(ofstream& file, string line){
+void HuffmanEncoding::decodeIntoFile(string line){
 	Trie* traverse = encodedTrie; 
 
 	for(int i = 0; i < (int)line.size(); i++){
@@ -97,7 +100,7 @@ void HuffmanEncoding::decodeIntoFile(ofstream& file, string line){
 		if(c == '1'){
 			traverse = traverse->left;
 			if(traverse->left == NULL){
-				file << traverse->c;
+				//file << traverse->c;
 				cout << traverse->c;
 				traverse = encodedTrie; 
 			}
@@ -106,7 +109,7 @@ void HuffmanEncoding::decodeIntoFile(ofstream& file, string line){
 		else if(c == '0'){
 			traverse = traverse->right; 
 			if(traverse->right == NULL){
-				file << traverse->c;
+				//file << traverse->c;
 				cout << traverse->c; 
 				traverse = encodedTrie; 
 			}
@@ -203,7 +206,7 @@ string HuffmanEncoding::getEncodedValue(char c){
 }
 
 void HuffmanEncoding::outputToFile(string inputFile){
-	ofstream myfile ("output.txt");
+	//ofstream myfile ("output.txt");
 	string line;
 	ifstream inFile (inputFile);
 	if (inFile.is_open()){
@@ -212,14 +215,16 @@ void HuffmanEncoding::outputToFile(string inputFile){
 			for(int i = 0; i < (int)line.size(); i++){
 				string val = getEncodedValue(line.at(i));
 				//cout << "val is: " << val << endl;
-  				myfile << val;
+  				//myfile << val;
   				cout << val; 
   			}
 		}
-		myfile.close();
+		//myfile.close();
 	}
     
   	else cout << "Unable to open file";
+
+  	cout << endl;
 }
 
 void HuffmanEncoding::printTrie(Trie* current){
